@@ -3,7 +3,6 @@ const fs = require('fs');
 const ejs = require('ejs');
 const url = require('url');
 const qs = require('querystring');
-const newsapi = require('newsapi');
 
 // var server = http.createServer(
 //   (request, response) => {
@@ -135,7 +134,7 @@ function response_other(request, response) {
     var body = '';
 
     request.on('data', (data) => {
-      body + data;
+      body += data;
     });
 
     request.on('end',() => {
@@ -148,7 +147,7 @@ function response_other(request, response) {
       response.writeHead(200, {'Content-Type' : 'text/html'});
       response.write(content);
       response.end();
-    })
+    });
   } else {
     var content = 'Page Not found';
     var content = ejs.render(other_page, {
@@ -160,7 +159,3 @@ function response_other(request, response) {
     response.end();
   }
 }
-
-newsapi.v2.topHeadlines({
-  category: 'technology',
-}).then(news => console.log(news));
